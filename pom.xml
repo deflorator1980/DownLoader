@@ -25,7 +25,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>kui2.Take2</mainClass>
+                            <mainClass>kui2.Take</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

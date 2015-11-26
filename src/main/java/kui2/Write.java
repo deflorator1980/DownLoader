@@ -11,20 +11,19 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class Write2 {
+public class Write {
     public static int write32(String urlAddress, String folder, String fileName, int speed)
             throws IOException, InterruptedException {
-        InputStream is = null;
-        FileOutputStream file = null;
-        BufferedInputStream bi = null;
-        BufferedOutputStream bo = null;
+        InputStream is;
+        FileOutputStream file;
+        BufferedInputStream bi;
+        BufferedOutputStream bo;
         URL url = new URL(urlAddress);
         URLConnection urlCon = url.openConnection();
 
         try {
             Files.createDirectories(Paths.get(folder));
-        } catch (FileAlreadyExistsException e) {
-        }
+        } catch (FileAlreadyExistsException ignored) {}
 
         file = new FileOutputStream(folder + "/" + fileName);
         is = urlCon.getInputStream();

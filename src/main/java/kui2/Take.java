@@ -9,8 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class Take2 {
-    static int commonVolume = 0;
+public class Take {
+    static int commonSize = 0;
 
     public static void main(String[] args) throws IOException,
             InterruptedException {
@@ -71,13 +71,13 @@ public class Take2 {
             tok = new StringTokenizer(line, " ");
             urlAddress = tok.nextToken();
             fileName = tok.nextToken();
-            exe.execute(new DoIt32(urlAddress, folder, fileName, speed));
+            exe.execute(new DoIt(urlAddress, folder, fileName, speed));
         }
         exe.shutdown();
         exe.awaitTermination(2, TimeUnit.MINUTES);
         System.out.println("Time "
                 + (System.currentTimeMillis() - startTime) + " ms");
-        System.out.println("Size " + commonVolume + " bytes");
+        System.out.println("Size " + commonSize + " bytes");
 
     }
 
@@ -94,36 +94,10 @@ public class Take2 {
     }
 
 
-    public static synchronized void addVolume(int threadVolume) {
-        commonVolume += threadVolume;
+    public static synchronized void addSize(int threadSize) {
+        commonSize += threadSize;
     }
 
 }
 
-class DoIt32 extends Thread {
-    private String urlAddress;
-    private String fileName;
-    private String folder;
-    private int speed;
 
-    public DoIt32(String urlAddress, String folder, String fileName, int speed) {
-        super();
-        this.urlAddress = urlAddress;
-        this.folder = folder;
-        this.fileName = fileName;
-        this.speed = speed;
-    }
-
-    public void run() {
-        try {
-            int threadVolume = Write2.write32(urlAddress, folder, fileName, speed);
-            System.out.println("Size of thread  " + threadVolume);
-            Take2.addVolume(threadVolume);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-    }
-}
