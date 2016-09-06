@@ -10,6 +10,7 @@ import java.net.URLConnection;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
 public class Write {
     public static int write32(String urlAddress, String folder, String fileName, int speed)
@@ -43,7 +44,8 @@ public class Write {
             if (secondVolume >= bytesProSecond) {
                 delta = (int) (System.currentTimeMillis() - secondBegun);
                 if (delta < 1000) {
-                    Thread.sleep(1000 - delta);
+//                    Thread.sleep(1000 - delta);
+                    TimeUnit.MILLISECONDS.sleep(1000 - delta);
                     secondVolume = 0;
                     secondBegun = System.currentTimeMillis();
                 }
